@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//test for using the git
+//aim to add, commit to branch and then push to remote
 
 Route::get('/', function () {
     return view('welcome');
