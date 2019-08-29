@@ -9,4 +9,7 @@
 			</li>
 		@endforeach
 	</ul>
+	<form method="GET" action="/playlists/create">
+		<input type="submit" value="Create a new playlist">
+	</form>
 @endsection
