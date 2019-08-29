@@ -1,6 +1,7 @@
 # SSpotify
 my first laravel project imitating Spotify
 
+testing of the pull and merge process
 功能：
 
 1.Playlist(播放清單）
