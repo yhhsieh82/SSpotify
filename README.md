@@ -1,6 +1,8 @@
 # SSpotify
 my first laravel project imitating Spotify
 
+try it 
+
 功能：
 
 1.Playlist(播放清單）
