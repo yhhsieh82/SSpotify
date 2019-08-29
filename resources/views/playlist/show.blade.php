@@ -23,4 +23,9 @@
 			</li>
 		@endforeach
 	</ol>
+	<form method="POST" action="/playlists/{{$playlist->id}}">
+		@csrf
+		@method('DELETE')
+		<input type="submit" value="delete the whole playlist">
+	</form>
 @endsection

@@ -22,7 +22,6 @@ class PlaylistsController extends Controller
      */
     public function index()
     {
-        return Playlist::all();
         $playlists = DB::table('playlists')->where('owner_id','=', Auth::id())->get();
         return view('playlist.index', compact('playlists'));
     }
@@ -34,7 +33,7 @@ class PlaylistsController extends Controller
      */
     public function create()
     {
-        //
+        return view('playlist.create');
     }
 
     /**
@@ -45,7 +44,14 @@ class PlaylistsController extends Controller
      */
     public function store(Request $request)
     {
-    
+        //validate
+        $attributes = $request->validate(
+            ['name' => 'required|max:255|unique:playlists']);
+        //use ORM mass assignment 
+        $attributes['owner_id']=Auth::id();
+        $attributes['name']=$request->name;
+        Playlist::create($attributes);
+        return redirect('/playlists');
     }
 
     /**
@@ -110,6 +116,10 @@ class PlaylistsController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
-        //
+        DB::table('playlist_song')->where('playlist_id', '=', $playlist->id)->
+        delete();
+        DB::table('playlists')->where('id', $playlist->id)->delete();
+        $this->flash('successfully delete the playlist!');
+        return redirect("/playlists");
     }
 }
