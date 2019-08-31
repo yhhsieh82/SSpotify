@@ -64,8 +64,8 @@ class PlaylistsController extends Controller
     {
         $this->authorize('view', $playlist);
         //select * from songs join playlist_song on song_id = songs.id where playlist_id = 1
-        $songs = DB::table('songs')
-        ->join('playlist_song', function ($join) {
+        $songs = DB::table('playlist_song')
+        ->join('songs', function ($join) {
             $join->on('song_id', '=', 'songs.id');
         })->where('playlist_id','=', $playlist->id)->get();
         

@@ -39,6 +39,7 @@ Route::resource('/playlists', 'PlaylistsController');
 Route::post('/playlists/{playlist}', 'PlaylistsController@addMusic');
 
 // Route::patch('/playlists/{playlist}', 'PlaylistsController@deleteMusic');
+Route::post('/song/ajaxget', 'AjaxController@getSong');
 
 Auth::routes();
 

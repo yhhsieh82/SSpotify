@@ -9,6 +9,7 @@
 	<ol>
 		@foreach( $songs as $song)
 			<li>
+				<button class="getSongPlayed" value="{{ $song->id }}">{{$song->id}}</button>
 				<a href="/songs/{{ $song->id }}">
 					{{ $song->title }}
 				</a> 
