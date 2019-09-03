@@ -3,7 +3,7 @@
 	<ul>
 		@foreach( $playlists as $playlist)
 			<li>
-				<a href="/playlists/{{ $playlist->id }}">
+				<a href="/playlists/{{ $playlist->id }}" id="{{ $playlist->id }}" >
 					{{ $playlist->name }}
 				</a>
 			</li>

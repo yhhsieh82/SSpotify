@@ -14,5 +14,6 @@
 	
 	@yield('content')
 	@include('layouts.nowPlayingBar')
+	
 </body>
 </html>

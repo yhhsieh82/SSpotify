@@ -41,6 +41,12 @@ Route::post('/playlists/{playlist}', 'PlaylistsController@addMusic');
 // Route::patch('/playlists/{playlist}', 'PlaylistsController@deleteMusic');
 Route::post('/song/ajaxget', 'AjaxController@getSong');
 
+Route::get('/artist/ajaxget', 'AjaxController@getArtist');
+
+Route::get('/album/ajaxget', 'AjaxController@getAlbum');
+
+// Route::post('/playlist/ajaxget', 'AjaxController@getPlaylist');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
