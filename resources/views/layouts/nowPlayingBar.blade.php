@@ -1,31 +1,127 @@
 <script>
-	var audioElement = new Audio();
-	audioElement.setTrack("{{ asset('/storage/musics/bensound-slowmotion.mp3')}}");
-	// audioElement.playSong();
-	//use jquery to get data from server use post method 
+	//var myObject = JSON.parse(localStorage.getItem('myObject'));
+
 	$(document).ready(function(){
-	    $('.getSongPlayed').on('click',function(){
-	        var song_id = $('.getSongPlayed').val();
-	        $.ajax({
-	            type:'POST',
-	            url:'/song/ajaxget',
-	            dataType: "json",
-	            data:{'song_id':song_id, _token: '{{csrf_token()}}'},
-	            error: function(){
-                	console.log('fail');
-        		},
-	            success:function(data){
-	            	console.log(data);
-	            }
-	        });
-	    });
+		audioElement = new Audio();
+
+		//wait data prepared at playlist.show.blade
+		if (typeof tmpSongIds !== 'undefined'){
+			tmpPlaylist = JSON.parse(tmpSongIds);
+			localStorage.setItem('tmpPlaylist', JSON.stringify(tmpPlaylist));
+			console.log(tmpPlaylist);
+		}
+		
+		//update the currentPlaylist
+		if(currentPlaylist.length === 0){
+			console.log('the currentPlaylist is undefined');
+			currentPlaylist = tmpPlaylist;
+			currentIndex = 0;
+
+			localStorage.setItem('currentPlaylist', JSON.stringify(currentPlaylist));
+			localStorage.setItem('currentIndex', JSON.stringify(currentIndex));
+		}
+		
+		if(currentPlaylist.length !== 0){
+			currentIndex = JSON.parse(localStorage.getItem('currentIndex'));
+			console.log('the currentPlaylist is:');
+			console.log(currentPlaylist);
+			console.log(currentIndex);
+			setPlayerInfo(currentPlaylist[currentIndex%currentPlaylist.length], currentPlaylist, false);
+		}
 	});
 
-	function playNextSong(){
-		var currentPlaylist = audioElement.currentPlaylist;
+	//for the set at the new page
+	function setPlayerInfo(trackId, playlist, play){
+		setTrack(trackId);
+		if(play){
+			playSong();
+		}else{
+			pauseSong();
+		}
+	}
 
-		audioElement.setTrack()
+	//for the click on the play of the songs (show.playlist)
+	function setPlayingInfo(songId){
+		setTrack(songId);
+    	currentPlaylist = tmpPlaylist;
+    	currentIndex = currentPlaylist.indexOf(parseInt(songId));
+    	playSong();
+
+    	localStorage.setItem('currentPlaylist', JSON.stringify(currentPlaylist));
+		localStorage.setItem('currentIndex', JSON.stringify(currentIndex)); 	
+	}
+
+	function setTrack(song_id) {
+	   $.ajax({
+            type:'POST',
+            url:'/song/ajaxget',
+            dataType: "json",
+            data:{"song_id":song_id, _token: '{{csrf_token()}}'},
+            error: function(xhr, status, error) {
+			    console.log(xhr.responseText);
+			},
+            success:function(data){
+            	var path = data.path.replace("public/", "/storage/");
+		    	audioElement.setTrack(path);
+		    	$(".trackName").text(data.title);
+		    	setArtistName(data.artist);
+		    	setAlbum(data.album);    	
+            }
+	    });
+	}
+
+	function setAlbum(albumId){
+		$.ajax({
+            type:'GET',
+            url:'/album/ajaxget',
+            dataType: "json",
+            data:{"album_id":albumId, _token: '{{csrf_token()}}'},
+            error: function(xhr, status, error) {
+			    console.log(xhr.responseText);
+			},
+            success:function(data){
+            	let path = data[0].imgPath.replace("public/", "/storage/");
+		    	$(".albumArtwork").attr("src",path);
+            }
+	    });
+	}
+
+	function setArtistName(artistId){
+		$.ajax({
+            type:'GET',
+            url:'/artist/ajaxget',
+            dataType: "json",
+            data:{"artist_id":artistId, _token: '{{csrf_token()}}'},
+            error: function(xhr, status, error) {
+			    console.log(xhr.responseText);
+			},
+            success:function(data){
+		    	$(".artistName").text(data[0].name);
+            }
+	    });
+	}
+
+	function playNextSong(){
+		pauseSong();
+		var song_id = currentPlaylist[(currentIndex + 1)%currentPlaylist.length];
+
+		setTrack(song_id);
+		//$.when(setTrack()).done(playSong());
+		audioElement.audio.oncanplay= function(){
+			playSong();
+		};
+
+		currentIndex += 1;
+		localStorage.setItem('currentIndex', JSON.stringify(currentIndex)); 
+	}
+
+	function playPrevSong(){
+		var song_id = currentPlaylist[(currentIndex + currentPlaylist.length -1)%currentPlaylist.length];
+		setTrack(song_id);
 		playSong();
+
+		currentIndex -= 1;
+		localStorage.setItem('currentIndex', JSON.stringify(currentIndex)); 
 	}
 
 	function playSong(){
@@ -40,6 +136,7 @@
 		audioElement.pause();
 	}
 </script>
+
 <div id="nowPlayingBarContainer">	
 		<div id="nowPlayingBar">
 			<div id="nowPlayingLeft">	
@@ -64,7 +161,7 @@
 							<img src="{{ asset('images/icons/shuffle.png')}}" alt="shuffle">
 						</button>
 						<button class="controlButton previous" tilte="previous button">
-							<img src="{{ asset('images/icons/previous.png')}}" alt="previous">
+							<img src="{{ asset('images/icons/previous.png')}}" alt="previous" onclick="playPrevSong()">
 						</button>
 						<button class="controlButton play" tilte="play button" onclick="playSong()">
 							<img src="{{ asset('images/icons/play.png')}}" alt="play">
@@ -72,7 +169,7 @@
 						<button class="controlButton pause" tilte="pause button" onclick="pauseSong()" style="display:none">
 							<img src="{{ asset('images/icons/pause.png')}}" alt="pause">
 						</button>
-						<button class="controlButton next" tilte="next button">
+						<button class="controlButton next" tilte="next button" onclick="playNextSong()">
 							<img src="{{ asset('images/icons/next.png')}}" alt="next">
 						</button>
 						<button class="controlButton repeat" tilte="repeat button">
@@ -98,7 +195,7 @@
 				
 					<div class="progressBar">
 						<div class="progressBarBg">
-							<div class="progress"></div>
+							<div class="volumeprogress"></div>
 						</div>
 						
 					</div>

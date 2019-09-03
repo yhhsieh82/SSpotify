@@ -1,5 +1,19 @@
 @extends('layout')
+
+
 @section('content')
+
+<?php 
+	$songIdArray = array();
+	foreach( $songs as $song){
+		array_push($songIdArray, $song->id);
+	}
+?>
+<script>
+	var tmpSongIds = "<?php echo json_encode($songIdArray); ?>";
+</script>
+
+
 	@if(session('message'))
 	<div>
 		<p>{{session('message')}}</p>
@@ -9,7 +23,7 @@
 	<ol>
 		@foreach( $songs as $song)
 			<li>
-				<button class="getSongPlayed" value="{{ $song->id }}">{{$song->id}}</button>
+				<button class="getSongPlayed" value="{{ $song->id }}" onclick="setPlayingInfo('{{ $song->id }}')">{{ $song->id }}</button>
 				<a href="/songs/{{ $song->id }}">
 					{{ $song->title }}
 				</a> 
