@@ -32,6 +32,8 @@ Route::resource('/musics', 'MusicsController');
 
 Route::resource('/songs', 'SongsController');
 
+Route::get('/albums', 'AlbumsController@index');
+
 Route::get('/albums/{album}', 'AlbumsController@show');
 
 Route::resource('/playlists', 'PlaylistsController');

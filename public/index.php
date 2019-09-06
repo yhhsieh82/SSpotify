@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -48,6 +49,13 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
+// use Illuminate\Support\Facades\DB;
+// // for AWS DB connection testing 53-57
+// if(DB::connection()->getDatabaseName())
+// {
+//    echo "Connected to database ".DB::connection()->getDatabaseName();
+// }
+// $response->send();
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

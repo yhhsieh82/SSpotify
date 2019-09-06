@@ -28,6 +28,57 @@
 			console.log(currentIndex);
 			setPlayerInfo(currentPlaylist[currentIndex%currentPlaylist.length], currentPlaylist, false);
 		}
+
+		$('.playbackBar .progressBar').mousedown(function() {
+			mouseDown = true;
+		});
+
+		$('.playbackBar .progressBar').mousemove(function(e) {
+			if(mouseDown == true) {
+
+				var percentage = e.offsetX / $(this).width();
+
+				if(percentage >= 0 && percentage <= 1) {
+					audioElement.audio.currentTime = audioElement.audio.duration * percentage;
+				}
+			}
+		});
+
+		$('.playbackBar .progressBar').mouseup(function(e) {
+			var percentage = e.offsetX / $(this).width();
+
+			if(percentage >= 0 && percentage <= 1) {
+				audioElement.audio.currentTime = audioElement.audio.duration * percentage;
+			}
+		});
+
+		$('.volumeBar .progressBar').mousedown(function() {
+			mouseDown = true;
+		});
+
+		$('.volumeBar .progressBar').mousemove(function(e) {
+			if(mouseDown == true) {
+
+				var percentage = e.offsetX / $(this).width();
+
+				if(percentage >= 0 && percentage <= 1) {
+					audioElement.audio.volume = percentage;
+				}
+			}
+		});
+
+		$('.volumeBar .progressBar').mouseup(function(e) {
+			var percentage = e.offsetX / $(this).width();
+
+			if(percentage >= 0 && percentage <= 1) {
+				audioElement.audio.volume = percentage;
+			}
+		});
+
+		$(document).mouseup(function() {
+			mouseDown = false;
+		});
+
 	});
 
 	//for the set at the new page
@@ -86,6 +137,12 @@
 	    });
 	}
 
+	function timeFromOffset(mouse, progressBar) {
+		var percentage = mouse.offsetX / $(progressBar).width() * 100;
+		var seconds = audioElement.audio.duration * (percentage / 100);
+		audioElement.setTime(seconds);
+	}
+
 	function setArtistName(artistId){
 		$.ajax({
             type:'GET',
@@ -142,7 +199,7 @@
 			<div id="nowPlayingLeft">	
 				<div class="content">
 					<span class="albumLink">
-						<img src="/storage/imgAlbum/popdance.jpg" class="albumArtwork">
+						<img src="" class="albumArtwork">
 					</span>
 					<div class="trackInfo">
 						<div class="trackName">
@@ -195,9 +252,8 @@
 				
 					<div class="progressBar">
 						<div class="progressBarBg">
-							<div class="volumeprogress"></div>
+							<div class="progress"></div>
 						</div>
-						
 					</div>
 				</div>
 			</div>	
