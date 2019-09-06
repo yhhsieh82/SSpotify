@@ -11,9 +11,17 @@
 </head>
 
 <body style="padding-top: 40px">
-	
-	@yield('content')
-	@include('layouts.nowPlayingBar')
+    <div id="topContainer">
+        <div id="navBarContainer">
+            @include('layouts.navBar')
+        </div>
+        <div id="contentContainer">
+            @yield('content')
+        </div>
+    </div>
+    <div id="bottomContainer">
+	   @include('layouts.nowPlayingBar')
+    </div> 
 	
 </body>
 </html>

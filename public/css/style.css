@@ -4,10 +4,39 @@ html, body{
 	height: 100%;
 }
 
+body {
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px;
+}
 /** {
 	font-family: "Helvetica Neue", Helvetica, Arial
 	color: #fff;
 }*/
+#topContainer{
+	  min-height: 100%;
+	  width: 100%;
+}
+
+#navBarContainer{
+	  width: 220px;
+    background-color: #000;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-left: 20px;
+    padding-top: 50px;
+}
+
+#contentContainer{
+    background-color: #181818;
+    height: 100vh;
+    width: auto;
+    padding-left: 50px;
+    margin-left: 220px;
+}
+
 #nowPlayingBarContainer{
 	bottom: 0;
     width: 100%;
@@ -25,14 +54,14 @@ html, body{
 }
 
 #nowPlayingLeft,
-#nowPlayingRight{
+#nowPlayingRight {
 	width: 30%;
-	min-width: 180px;
+    min-width: 180px;
 }
 
-#nowPlayingRight{
+#nowPlayingRight {
 	position: relative;
-	margin-top: 16px;
+    margin-top: 16px;
 }
 #nowPlayingCenter{
 	width: 40%;
@@ -79,41 +108,41 @@ html, body{
 	text-align: center;
 }
 
-.playbackBar{
+.playbackBar {
 	display: flex;
 }
 
-.progressBar{
+.progressBar {
 	width: 100%;
-	height: 12px;
-	display: inline-flex;
-	cursor: pointer;
+    height: 12px;
+    display: inline-flex;
+    cursor: pointer;
 }
 
-.progressBarBg{
+.progressBarBg {
 	background-color: #404040;
-	height: 4px;
-	width: 100%;
-	border-radius: 2px;
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
 }
 
-.progress{
+.progress {
 	background-color: #a0a0a0;
-	height: 4px;
-	width: 0;
-	border-radius: 2px;
+    height: 4px;
+    width: 0;
+    border-radius: 2px;
 }
 
-.playbackBar .progressBar{
+.playbackBar .progressBar {
 	margin-top: 3px;
 }
 
-#nowPlayingLeft .albumArtwork{
+#nowPlayingLeft .albumArtwork {
 	height: 100%;
-	max-width: 57px;
-	margin-right: 15px;
-	float: left;
-	background-size: cover;
+    max-width: 57px;
+    margin-right: 15px;
+    float: left;
+    background-size: cover;
 }
 
 #nowPlayingLeft .trackInfo{
@@ -125,6 +154,7 @@ html, body{
 	display: inline-block;
 	width: 100%;
 }
+
 #nowPlayingLeft .trackInfo .trackName span{
 	
 	color: #fff;
@@ -134,16 +164,39 @@ html, body{
 	color: #a0a0a0;
 }
 
-.volumeBar{
+.volumeBar {
 	width: 180px;
-	position: absolute;
-	right: 0;
+    position: absolute;
+    right: 0;
 }
 
-.volumeBar .progressBar{
+.volumeBar .progressBar {
 	width: 125px;
 }
 
+/**my own design for the class submit**/
+.navBar .submit{
+    font-size: medium;
+    font-weight: bold;
+    color: dimgrey;
+    border: none;
+    background-color: #000;
+}
+
+.navBar input.submit:hover{
+    color: lightgrey;
+}
+.submit {
+	  background-color: #181818;
+    color: dimgrey;
+    border-radius: 10px;
+}
+
+.getSongPlayed {
+	  background-color: #181818;
+    color: dimgrey;
+    border-radius: 10px;
+}
 /**
 the css below only applied to the /albums/id 
 s.t. the songs can be added to the playlist

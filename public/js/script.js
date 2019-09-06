@@ -1,4 +1,5 @@
 var audioElement ;
+var mouseDown = false;
 // var currentIndex;
 // var tmpPlaylist = [];
 // var currentPlaylist = [];
@@ -44,12 +45,12 @@ function updateProgressBar(audio){
 	$('.progressTime.current').text(time);
 
 	var progress = audio.currentTime / audio.duration * 100;
-	$('.progressBar .progress').css('width', progress + '%');
+	$(".playbackBar .progress").css("width", progress + "%");
 }
 
 function updateVolumeBar(audio){
 	var progress = audio.volume * 100;
-	$('.progressBar .volumeprogress').css('width', progress + '%');
+	$('.volumeBar .progressBar .progress').css('width', progress + '%');
 }
 
 function Audio(){
@@ -69,6 +70,7 @@ function Audio(){
 	this.audio.addEventListener('volumechange', function(){
 		updateVolumeBar(this);
 	})
+
 	this.setTrack = function(src){
 		this.audio.src = src;
 	}

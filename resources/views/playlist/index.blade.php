@@ -10,6 +10,6 @@
 		@endforeach
 	</ul>
 	<form method="GET" action="/playlists/create">
-		<input type="submit" value="Create a new playlist">
+		<input type="submit" class="submit" value="Create a new playlist">
 	</form>
 @endsection
