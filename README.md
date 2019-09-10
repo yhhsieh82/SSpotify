@@ -5,6 +5,7 @@ http://sspotify.us-east-2.elasticbeanstalk.com
 
 
 實作項目：
+
 一、以php/Laravel實現後端資料存取、呈現
 
  1. Playlist(播放清單）
