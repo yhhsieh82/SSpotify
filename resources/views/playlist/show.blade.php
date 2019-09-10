@@ -27,12 +27,12 @@
 				<a href="/songs/{{ $song->id }}">
 					{{ $song->title }}
 				</a> 
-				<div class="delete">
-				  	<form method="POST" action="/playlists/{{$playlist->id}}"> 
+				<div style="display: inline">
+				  	<form  style="display: inline"method="POST" action="/playlists/{{$playlist->id}}"> 
 		  				@csrf
 						@method('PATCH')
-		  				<input type="hidden" name="playlist_song_id" value="{{ $song->id }}"/>  
-					    <input type="submit" class="submit" name="submit" value="delete from the playlist" />
+		  				<input type="hidden" name="song_id" value="{{ $song->id }}"/>  
+					    <input type="submit" class="submit" name="submit" value="delete" />
 					</form>
 				</div>
 			</li>

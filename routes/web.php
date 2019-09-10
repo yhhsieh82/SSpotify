@@ -14,7 +14,7 @@
 //aim to add, commit to branch and then push to remote
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/albums');
 });
 
 // Route::get('/musics/{music}', 'MusicsController@show');

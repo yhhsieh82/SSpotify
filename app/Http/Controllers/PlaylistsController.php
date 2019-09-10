@@ -68,7 +68,13 @@ class PlaylistsController extends Controller
         ->join('songs', function ($join) {
             $join->on('song_id', '=', 'songs.id');
         })->where('playlist_id','=', $playlist->id)->get();
+
+        // $songs = DB::table('songs')
+        // ->join('playlist_song', function ($join) {
+        //     $join->on('song_id', '=', 'songs.id');
+        // })->where('playlist_id','=', $playlist->id)->get();
         
+        // dd($songs);
         return view('playlist.show', compact('songs','playlist'));
     }
 
@@ -103,7 +109,10 @@ class PlaylistsController extends Controller
      */
     public function update(Request $request, Playlist $playlist)
     {
-        DB::table('playlist_song')->where('id', '=', $request["playlist_song_id"])->delete();
+        DB::table('playlist_song')->where([
+            ['song_id', '=', $request["song_id"]],
+            ['playlist_id', '=', $playlist->id],
+        ])->delete();
         $this->flash('successfully delete the song!');
         return redirect("/playlists/$playlist->id");
     }

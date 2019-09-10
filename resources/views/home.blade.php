@@ -17,6 +17,8 @@
                     You are logged in!
                 </div>
             </div>
+            <a href="/albums">Go check your music!</a>
+
         </div>
     </div>
 </div>
