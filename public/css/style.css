@@ -13,10 +13,12 @@ body {
 	font-family: "Helvetica Neue", Helvetica, Arial
 	color: #fff;
 }*/
+
 #topContainer{
-	  min-height: 100%;
-	  width: 100%;
+    min-height: 100%;
+    width: 100%;
 }
+
 
 #navBarContainer{
 	  width: 220px;
