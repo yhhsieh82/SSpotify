@@ -1,34 +1,36 @@
 # SSpotify
 my first php/laravel project imitating Spotify
 
-功能：
+http://sspotify.us-east-2.elasticbeanstalk.com
 
+
+實作項目：
 一、以php/Laravel實現後端資料存取、呈現
 
- 1.Playlist(播放清單）
+ 1. Playlist(播放清單）
 
-	1.index:
+	-index:
 	  展示當前使用者所有的播放清單
 	  技術:
 	      如何設計DB表格來實現播放清單所擁有的歌曲？
 	      在此設計下，如何利用SQL存取該播放清單內的所有歌曲？(join)
 	      
-	2.show:
+	-show:
 	  展示播放清單內所有歌曲
 	  
-	3.update:
+	-update:
  	  將某一首歌自播放清單內刪除
 	  
-	4.addMusic:
+	-addMusic:
 	  將某一首歌加入播放清單
 	  
- 2.Album(專輯）
-
-	-index:
+ 2. Album(專輯）:
+ 
+    -index:
      展示音樂庫中所有專輯
-	
+     
 	-show:
-	 展示專輯內所有歌曲，支援加入使用者的歌單
+	 展示專輯內所有歌曲，支援加入使用者的歌單 
      
 	-without update, delete, store:
 	 模擬spotify，使用者並非創作者所以無法修改歌曲。
